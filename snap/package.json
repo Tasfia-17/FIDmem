@@ -1,0 +1,19 @@
+{
+  "name": "snap",
+  "private": true,
+  "scripts": {
+    "dev": "SKIP_JFS_VERIFICATION=1 tsx watch src/index.ts",
+    "start": "tsx src/index.ts"
+  },
+  "dependencies": {
+    "@farcaster/snap": "latest",
+    "@farcaster/snap-hono": "latest",
+    "@farcaster/snap-turso": "latest",
+    "hono": "^4.7.0"
+  },
+  "devDependencies": {
+    "tsx": "latest",
+    "@types/node": "latest",
+    "typescript": "^5.8.0"
+  }
+}

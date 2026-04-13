@@ -1,15 +1,15 @@
-import { createClient, type Client } from "@libsql/client";
+import { createClient, type Client } from "@libsql/client/web";
 import type { Env, Memory } from "../types";
 
+// Module-level singleton — persists across warm requests in the same Worker isolate
 let _db: Client | null = null;
 
 export function getDb(env: Env): Client {
-  if (!_db) {
-    _db = createClient({
-      url: env.TURSO_DATABASE_URL,
-      authToken: env.TURSO_AUTH_TOKEN,
-    });
-  }
+  if (_db) return _db;
+  _db = createClient({
+    url: env.TURSO_DATABASE_URL,
+    authToken: env.TURSO_AUTH_TOKEN,
+  });
   return _db;
 }
 
@@ -57,7 +57,6 @@ export async function getMemories(
         sql: `SELECT * FROM memories WHERE owner_fid = ? ORDER BY updated_at DESC`,
         args: [owner_fid],
       });
-
   return result.rows.map(rowToMemory);
 }
 
@@ -74,11 +73,7 @@ export async function getMemoryByKey(
   return result.rows[0] ? rowToMemory(result.rows[0]) : null;
 }
 
-export async function deleteMemory(
-  db: Client,
-  owner_fid: number,
-  id: string
-): Promise<void> {
+export async function deleteMemory(db: Client, owner_fid: number, id: string): Promise<void> {
   await db.execute({
     sql: `DELETE FROM memories WHERE id = ? AND owner_fid = ?`,
     args: [id, owner_fid],

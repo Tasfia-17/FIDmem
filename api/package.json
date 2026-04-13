@@ -6,16 +6,18 @@
     "deploy": "wrangler deploy"
   },
   "dependencies": {
+    "@hono/zod-validator": "^0.7.6",
     "@libsql/client": "^0.14.0",
-    "@x402/hono": "latest",
     "@x402/core": "latest",
     "@x402/evm": "latest",
+    "@x402/hono": "latest",
     "hono": "^4.7.0",
-    "viem": "^2.21.0"
+    "viem": "^2.21.0",
+    "zod": "^4.3.6"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20250409.0",
-    "wrangler": "^4.0.0",
-    "typescript": "^5.8.0"
+    "typescript": "^5.8.0",
+    "wrangler": "^4.0.0"
   }
 }

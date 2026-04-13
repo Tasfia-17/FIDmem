@@ -9,11 +9,12 @@
     "@farcaster/snap": "latest",
     "@farcaster/snap-hono": "latest",
     "@farcaster/snap-turso": "latest",
+    "@hono/node-server": "^1.19.14",
     "hono": "^4.7.0"
   },
   "devDependencies": {
-    "tsx": "latest",
     "@types/node": "latest",
+    "tsx": "latest",
     "typescript": "^5.8.0"
   }
 }

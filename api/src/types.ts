@@ -7,6 +7,12 @@ export interface Env {
   ENVIRONMENT: string;
 }
 
+// Typed Hono context variables — fixes c.get/c.set "never" errors
+export interface Variables {
+  ownerFid: number;
+  agentId: string;
+}
+
 export interface Memory {
   id: string;
   owner_fid: number;

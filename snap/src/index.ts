@@ -1,6 +1,7 @@
 import { serve } from "@hono/node-server";
 import { Hono } from "hono";
 import { registerSnapHandler } from "@farcaster/snap-hono";
+import type { SnapHandlerResult } from "@farcaster/snap";
 import {
   homePage,
   addPage,
@@ -8,6 +9,16 @@ import {
   messagePage,
   fetchMemories,
 } from "./pages/home";
+
+// Minimal local types to avoid zod v3/v4 peer dep mismatch
+interface GetAction { type: "get" }
+interface PostAction {
+  type: "post";
+  user: { fid: number };
+  inputs: Record<string, string | number | boolean | string[]>;
+}
+type AnyAction = GetAction | PostAction;
+interface SnapCtx { action: AnyAction; request: Request }
 
 const API_BASE = process.env.FIDMEM_API_URL ?? "http://localhost:8787";
 
@@ -20,50 +31,42 @@ function base(req: Request): string {
     req.headers.get("x-forwarded-host") ??
     req.headers.get("host") ??
     "localhost:3003";
-  const proto = /^(localhost|127\.0\.0\.1)(:\d+)?$/.test(host)
-    ? "http"
-    : "https";
+  const proto = /^(localhost|127\.0\.0\.1)(:\d+)?$/.test(host) ? "http" : "https";
   return `${proto}://${host}`;
 }
 
-registerSnapHandler(app, async (ctx) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+registerSnapHandler(app, async (rawCtx: any): Promise<SnapHandlerResult> => {
+  const ctx = rawCtx as SnapCtx;
   const url = new URL(ctx.request.url);
   const b = base(ctx.request);
   const path = url.pathname;
 
-  // ── GET: render pages ──────────────────────────────────────────────────────
+  // GET: render pages
   if (ctx.action.type === "get") {
     if (path === "/add") return addPage(b);
     if (path === "/grant") return grantPage(b);
 
-    // Default: home dashboard
-    // In a real Snap, FID comes from the cast context.
-    // For demo, we use a query param ?fid=X or fall back to 0.
     const fid = parseInt(url.searchParams.get("fid") ?? "0", 10);
     if (!fid) {
-      return messagePage(
-        "FIDmem",
-        "Open this snap from a Farcaster cast to load your memories.",
-        b
-      );
+      return messagePage("FIDmem", "Open this snap from a Farcaster cast to load your memories.", b);
     }
     const { memories, agents } = await fetchMemories(fid);
     return homePage(memories, agents, b);
   }
 
-  // ── POST: handle actions ───────────────────────────────────────────────────
-  const fid = ctx.action.user.fid; // verified by JFS
-  const inputs = ctx.action.inputs ?? {};
-  const action = url.searchParams.get("action");
+  // POST: handle actions
+  const post = ctx.action as PostAction;
+  const fid = post.user.fid;
+  const inputs = post.inputs ?? {};
+  const actionParam = url.searchParams.get("action");
 
-  if (action === "add") {
-    const key = (inputs["key"] as string)?.trim();
-    const value = (inputs["value"] as string)?.trim();
-    const type = (inputs["type"] as string) ?? "preference";
+  if (actionParam === "add") {
+    const key = String(inputs["key"] ?? "").trim();
+    const value = String(inputs["value"] ?? "").trim();
+    const type = String(inputs["type"] ?? "preference");
 
-    if (!key || !value) {
-      return messagePage("Error", "Key and value are required.", b);
-    }
+    if (!key || !value) return messagePage("Error", "Key and value are required.", b);
 
     const res = await fetch(`${API_BASE}/memory/${fid}`, {
       method: "POST",
@@ -75,15 +78,12 @@ registerSnapHandler(app, async (ctx) => {
       body: JSON.stringify({ key, value, type }),
     });
 
-    if (!res.ok) {
-      return messagePage("Error", "Failed to save memory.", b);
-    }
-
+    if (!res.ok) return messagePage("Error", "Failed to save memory.", b);
     const { memories, agents } = await fetchMemories(fid);
     return homePage(memories, agents, b);
   }
 
-  if (action === "delete") {
+  if (actionParam === "delete") {
     const id = url.searchParams.get("id") ?? "";
     await fetch(`${API_BASE}/memory/${fid}/${id}`, {
       method: "DELETE",
@@ -93,8 +93,8 @@ registerSnapHandler(app, async (ctx) => {
     return homePage(memories, agents, b);
   }
 
-  if (action === "grant") {
-    const agent_id = (inputs["agent_id"] as string)?.trim();
+  if (actionParam === "grant") {
+    const agent_id = String(inputs["agent_id"] ?? "").trim();
     const can_read = inputs["can_read"] !== "false";
     const can_write = inputs["can_write"] === "true";
 
@@ -113,7 +113,6 @@ registerSnapHandler(app, async (ctx) => {
     );
   }
 
-  // Fallback: reload home
   const { memories, agents } = await fetchMemories(fid);
   return homePage(memories, agents, b);
 });

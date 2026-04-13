@@ -1,5 +1,5 @@
 import type { Context, Next } from "hono";
-import type { Env } from "../types";
+import type { Env, Variables } from "../types";
 import { getDb, getAgentAccess } from "../lib/db";
 import { getUserByFid } from "../lib/neynar";
 import { isRegisteredAgent } from "../lib/erc8004";
@@ -12,7 +12,7 @@ import { isRegisteredAgent } from "../lib/erc8004";
  *   X-Agent-Fid: Farcaster FID of the agent
  */
 export async function agentAuthMiddleware(
-  c: Context<{ Bindings: Env }>,
+  c: Context<{ Bindings: Env; Variables: Variables }>,
   next: Next
 ) {
   const agentId = c.req.header("x-agent-id");
@@ -32,19 +32,16 @@ export async function agentAuthMiddleware(
 
   // "self" = user accessing their own memories via Snap — skip ERC-8004 check
   if (agentId !== "self") {
-    // 1. Verify agent FID exists on Farcaster
     const agentUser = await getUserByFid(agentFid, c.env);
     if (!agentUser) {
       return c.json({ error: "Agent FID not found on Farcaster" }, 403);
     }
 
-    // 2. Verify agent has a registered ERC-8004 identity on Base
     const verified = await isRegisteredAgent(BigInt(agentId), agentUser.custody_address, c.env);
     if (!verified) {
       return c.json({ error: "Agent not registered on ERC-8004 Identity Registry" }, 403);
     }
 
-    // 3. Check access permissions granted by the user
     const db = getDb(c.env);
     const access = await getAgentAccess(db, ownerFid, agentId);
     const isWrite = c.req.method === "POST" || c.req.method === "DELETE";

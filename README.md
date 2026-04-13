@@ -47,6 +47,36 @@ Agents authenticate by passing their ERC-8004 agent ID and Farcaster FID. The AP
 
 ---
 
+## Cross-Agent Memory Sharing
+
+<div align="center">
+  <img src="docs/cross-agent.svg" width="860" alt="Cross-agent memory sharing diagram" />
+</div>
+
+Agent Alice writes four preferences to FIDmem. Agent Bob, a completely different agent that has never spoken to this user, reads those preferences and adapts its response. The user never told Bob anything. That is the core value of FIDmem.
+
+---
+
+## Request Flow
+
+<div align="center">
+  <img src="docs/request-flow.svg" width="860" alt="Request flow diagram" />
+</div>
+
+Every agent request goes through five steps. The agent sends a GET request. The API returns HTTP 402. The agent auto-pays $0.001 USDC on Base via x402. The API verifies the agent's ERC-8004 identity on Base. The memory is returned from Turso. The entire round-trip takes under two seconds.
+
+---
+
+## Snap Dashboard Pages
+
+<div align="center">
+  <img src="docs/snap-pages.svg" width="860" alt="Snap dashboard pages" />
+</div>
+
+The Snap has three pages embedded directly in the Farcaster feed. The home dashboard shows all stored memories with delete buttons and a list of agents that have access. The add memory page has a key input, value input, and type selector. The grant access page lets users give specific agents read or write permissions using their ERC-8004 agent ID.
+
+---
+
 ## The Demo Moment
 
 This is the core of what FIDmem does, shown in two steps.

@@ -1,0 +1,205 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 300" width="860" height="300">
+  <defs>
+    <linearGradient id="bg4" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#faf8ff"/>
+      <stop offset="100%" style="stop-color:#f4f8ff"/>
+    </linearGradient>
+    <!-- Snap page gradients -->
+    <linearGradient id="pg1" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#f5eeff"/>
+      <stop offset="100%" style="stop-color:#e8d5f5"/>
+    </linearGradient>
+    <linearGradient id="pg2" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#eef5ff"/>
+      <stop offset="100%" style="stop-color:#d4e8ff"/>
+    </linearGradient>
+    <linearGradient id="pg3" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#eef5ee"/>
+      <stop offset="100%" style="stop-color:#d4eac8"/>
+    </linearGradient>
+    <!-- 3D phone frame -->
+    <linearGradient id="phoneTop" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#e8e0f8"/>
+      <stop offset="100%" style="stop-color:#d4c8f0"/>
+    </linearGradient>
+    <linearGradient id="phoneLeft" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#c8b8e8"/>
+      <stop offset="100%" style="stop-color:#b8a8e0"/>
+    </linearGradient>
+    <linearGradient id="phoneRight" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#d8c8f0"/>
+      <stop offset="100%" style="stop-color:#c8b8e8"/>
+    </linearGradient>
+    <filter id="phoneShadow">
+      <feDropShadow dx="4" dy="6" stdDeviation="8" flood-color="#c4b0e0" flood-opacity="0.3"/>
+    </filter>
+    <marker id="nav1" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L7,3 z" fill="#c4b0e0"/>
+    </marker>
+  </defs>
+
+  <rect width="860" height="300" fill="url(#bg4)" rx="16"/>
+  <text x="430" y="30" text-anchor="middle" font-family="'SF Pro Display',sans-serif" font-size="15" font-weight="700" fill="#5a4a7a">Snap Dashboard Pages</text>
+  <text x="430" y="48" text-anchor="middle" font-family="'SF Pro Text',sans-serif" font-size="10" fill="#9b8ab8">Three pages embedded in the Farcaster feed, no app switching required</text>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- Phone 1: Home Dashboard -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- 3D phone frame -->
+  <rect x="60" y="65" width="160" height="200" rx="16" fill="url(#phoneTop)" stroke="#c4b0e0" stroke-width="1.5" filter="url(#phoneShadow)"/>
+  <!-- 3D left edge -->
+  <polygon points="60,81 50,88 50,272 60,265" fill="url(#phoneLeft)" stroke="#b8a0e0" stroke-width="1"/>
+  <!-- 3D bottom edge -->
+  <polygon points="60,265 50,272 220,272 220,265" fill="url(#phoneLeft)" stroke="#b8a0e0" stroke-width="1" opacity="0.7"/>
+  <!-- Screen area -->
+  <rect x="68" y="78" width="144" height="180" rx="10" fill="url(#pg1)"/>
+  <!-- Status bar -->
+  <rect x="68" y="78" width="144" height="18" rx="10" fill="#e8d5f5"/>
+  <text x="140" y="91" text-anchor="middle" font-family="'SF Mono',monospace" font-size="7.5" fill="#7c5cbf">FIDmem</text>
+  <!-- Home button -->
+  <circle cx="140" cy="272" r="8" fill="#e8d5f5" stroke="#c4b0e0" stroke-width="1"/>
+
+  <!-- Page content -->
+  <text x="140" y="112" text-anchor="middle" font-family="'SF Pro Text',sans-serif" font-size="9" font-weight="700" fill="#7c5cbf">Memory Dashboard</text>
+  <text x="140" y="124" text-anchor="middle" font-family="'SF Mono',monospace" font-size="7.5" fill="#9b7cc8">4 memories · 2 agents</text>
+
+  <!-- Memory rows -->
+  <rect x="76" y="130" width="128" height="18" rx="5" fill="#f5eeff" stroke="#c4b0e0" stroke-width="0.8"/>
+  <text x="110" y="142" text-anchor="middle" font-family="'SF Mono',monospace" font-size="7" fill="#7c5cbf">risk_tolerance</text>
+  <text x="175" y="142" text-anchor="middle" font-family="'SF Mono',monospace" font-size="7" fill="#c4b0e0">del</text>
+
+  <rect x="76" y="152" width="128" height="18" rx="5" fill="#eef5ff" stroke="#9bbfe8" stroke-width="0.8"/>
+  <text x="110" y="164" text-anchor="middle" font-family="'SF Mono',monospace" font-size="7" fill="#3a6a9a">preferred_chains</text>
+  <text x="175" y="164" text-anchor="middle" font-family="'SF Mono',monospace" font-size="7" fill="#9bbfe8">del</text>
+
+  <rect x="76" y="174" width="128" height="18" rx="5" fill="#eef5ee" stroke="#b8d9a8" stroke-width="0.8"/>
+  <text x="110" y="186" text-anchor="middle" font-family="'SF Mono',monospace" font-size="7" fill="#3a6a4a">favorite_tokens</text>
+  <text x="175" y="186" text-anchor="middle" font-family="'SF Mono',monospace" font-size="7" fill="#b8d9a8">del</text>
+
+  <!-- Separator -->
+  <line x1="76" y1="198" x2="204" y2="198" stroke="#c4b0e0" stroke-width="0.8" opacity="0.5"/>
+
+  <!-- Add button -->
+  <rect x="76" y="204" width="128" height="20" rx="8" fill="#c4b0e0"/>
+  <text x="140" y="218" text-anchor="middle" font-family="'SF Pro Text',sans-serif" font-size="9" font-weight="600" fill="#fff">Add Memory</text>
+
+  <!-- Label -->
+  <text x="140" y="290" text-anchor="middle" font-family="'SF Pro Text',sans-serif" font-size="9" font-weight="600" fill="#7c5cbf">Home Dashboard</text>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- Arrow 1 to 2 -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <path d="M 222,165 L 278,165" stroke="#c4b0e0" stroke-width="1.5" stroke-dasharray="4,2" marker-end="url(#nav1)"/>
+  <rect x="228" y="153" width="44" height="14" rx="4" fill="#faf8ff"/>
+  <text x="250" y="163" text-anchor="middle" font-family="'SF Mono',monospace" font-size="7.5" fill="#9b7cc8">tap Add</text>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- Phone 2: Add Memory -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <rect x="280" y="65" width="160" height="200" rx="16" fill="url(#phoneTop)" stroke="#9bbfe8" stroke-width="1.5" filter="url(#phoneShadow)"/>
+  <polygon points="280,81 270,88 270,272 280,265" fill="url(#phoneLeft)" stroke="#90b8e8" stroke-width="1" opacity="0.8"/>
+  <polygon points="280,265 270,272 440,272 440,265" fill="url(#phoneLeft)" stroke="#90b8e8" stroke-width="1" opacity="0.5"/>
+  <rect x="288" y="78" width="144" height="180" rx="10" fill="url(#pg2)"/>
+  <rect x="288" y="78" width="144" height="18" rx="10" fill="#d4e8ff"/>
+  <text x="360" y="91" text-anchor="middle" font-family="'SF Mono',monospace" font-size="7.5" fill="#3a6a9a">Add Memory</text>
+  <circle cx="360" cy="272" r="8" fill="#d4e8ff" stroke="#9bbfe8" stroke-width="1"/>
+
+  <!-- Page content -->
+  <text x="360" y="112" text-anchor="middle" font-family="'SF Pro Text',sans-serif" font-size="9" font-weight="700" fill="#3a6a9a">Add Memory</text>
+
+  <!-- Key input -->
+  <text x="296" y="128" font-family="'SF Pro Text',sans-serif" font-size="7.5" fill="#5a8ab8">Key</text>
+  <rect x="296" y="132" width="128" height="18" rx="5" fill="#fff" stroke="#9bbfe8" stroke-width="1"/>
+  <text x="310" y="144" font-family="'SF Mono',monospace" font-size="7.5" fill="#9bbfe8">risk_tolerance</text>
+
+  <!-- Value input -->
+  <text x="296" y="160" font-family="'SF Pro Text',sans-serif" font-size="7.5" fill="#5a8ab8">Value</text>
+  <rect x="296" y="164" width="128" height="18" rx="5" fill="#fff" stroke="#9bbfe8" stroke-width="1"/>
+  <text x="310" y="176" font-family="'SF Mono',monospace" font-size="7.5" fill="#9bbfe8">medium</text>
+
+  <!-- Type toggle -->
+  <text x="296" y="194" font-family="'SF Pro Text',sans-serif" font-size="7.5" fill="#5a8ab8">Type</text>
+  <rect x="296" y="198" width="38" height="14" rx="5" fill="#9bbfe8"/>
+  <text x="315" y="208" text-anchor="middle" font-family="'SF Mono',monospace" font-size="7" fill="#fff">pref</text>
+  <rect x="337" y="198" width="38" height="14" rx="5" fill="#eef5ff" stroke="#9bbfe8" stroke-width="0.8"/>
+  <text x="356" y="208" text-anchor="middle" font-family="'SF Mono',monospace" font-size="7" fill="#9bbfe8">fact</text>
+  <rect x="378" y="198" width="38" height="14" rx="5" fill="#eef5ff" stroke="#9bbfe8" stroke-width="0.8"/>
+  <text x="397" y="208" text-anchor="middle" font-family="'SF Mono',monospace" font-size="7" fill="#9bbfe8">skill</text>
+
+  <!-- Save button -->
+  <rect x="296" y="218" width="128" height="20" rx="8" fill="#9bbfe8"/>
+  <text x="360" y="232" text-anchor="middle" font-family="'SF Pro Text',sans-serif" font-size="9" font-weight="600" fill="#fff">Save</text>
+
+  <text x="360" y="290" text-anchor="middle" font-family="'SF Pro Text',sans-serif" font-size="9" font-weight="600" fill="#3a6a9a">Add Memory</text>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- Arrow 2 to 3 -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <path d="M 442,165 L 498,165" stroke="#9bbfe8" stroke-width="1.5" stroke-dasharray="4,2" marker-end="url(#nav1)"/>
+  <rect x="448" y="153" width="44" height="14" rx="4" fill="#faf8ff"/>
+  <text x="470" y="163" text-anchor="middle" font-family="'SF Mono',monospace" font-size="7.5" fill="#5a8ab8">grant</text>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- Phone 3: Grant Access -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <rect x="500" y="65" width="160" height="200" rx="16" fill="url(#phoneTop)" stroke="#b8d9a8" stroke-width="1.5" filter="url(#phoneShadow)"/>
+  <polygon points="500,81 490,88 490,272 500,265" fill="url(#phoneLeft)" stroke="#90c080" stroke-width="1" opacity="0.8"/>
+  <polygon points="500,265 490,272 660,272 660,265" fill="url(#phoneLeft)" stroke="#90c080" stroke-width="1" opacity="0.5"/>
+  <rect x="508" y="78" width="144" height="180" rx="10" fill="url(#pg3)"/>
+  <rect x="508" y="78" width="144" height="18" rx="10" fill="#d4eac8"/>
+  <text x="580" y="91" text-anchor="middle" font-family="'SF Mono',monospace" font-size="7.5" fill="#3a6a4a">Grant Access</text>
+  <circle cx="580" cy="272" r="8" fill="#d4eac8" stroke="#b8d9a8" stroke-width="1"/>
+
+  <!-- Page content -->
+  <text x="580" y="112" text-anchor="middle" font-family="'SF Pro Text',sans-serif" font-size="9" font-weight="700" fill="#3a6a4a">Grant Agent Access</text>
+
+  <!-- Agent ID input -->
+  <text x="516" y="128" font-family="'SF Pro Text',sans-serif" font-size="7.5" fill="#5a8a6a">ERC-8004 Agent ID</text>
+  <rect x="516" y="132" width="128" height="18" rx="5" fill="#fff" stroke="#b8d9a8" stroke-width="1"/>
+  <text x="530" y="144" font-family="'SF Mono',monospace" font-size="7.5" fill="#b8d9a8">42</text>
+
+  <!-- Read toggle -->
+  <text x="516" y="162" font-family="'SF Pro Text',sans-serif" font-size="7.5" fill="#5a8a6a">Allow reading</text>
+  <rect x="616" y="154" width="28" height="14" rx="7" fill="#b8d9a8"/>
+  <circle cx="637" cy="161" r="6" fill="#fff"/>
+
+  <!-- Write toggle -->
+  <text x="516" y="182" font-family="'SF Pro Text',sans-serif" font-size="7.5" fill="#5a8a6a">Allow writing</text>
+  <rect x="616" y="174" width="28" height="14" rx="7" fill="#d4eac8" stroke="#b8d9a8" stroke-width="0.8"/>
+  <circle cx="623" cy="181" r="6" fill="#fff" stroke="#b8d9a8" stroke-width="0.8"/>
+
+  <!-- Grant button -->
+  <rect x="516" y="196" width="128" height="20" rx="8" fill="#b8d9a8"/>
+  <text x="580" y="210" text-anchor="middle" font-family="'SF Pro Text',sans-serif" font-size="9" font-weight="600" fill="#fff">Grant Access</text>
+
+  <!-- Back button -->
+  <rect x="516" y="220" width="128" height="16" rx="6" fill="#eef5ee" stroke="#b8d9a8" stroke-width="0.8"/>
+  <text x="580" y="231" text-anchor="middle" font-family="'SF Pro Text',sans-serif" font-size="8" fill="#5a8a6a">Back</text>
+
+  <text x="580" y="290" text-anchor="middle" font-family="'SF Pro Text',sans-serif" font-size="9" font-weight="600" fill="#3a6a4a">Grant Access</text>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- Phone 4: Success -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <path d="M 662,165 L 698,165" stroke="#b8d9a8" stroke-width="1.5" stroke-dasharray="4,2" marker-end="url(#nav1)"/>
+  <rect x="668" y="153" width="24" height="14" rx="4" fill="#faf8ff"/>
+  <text x="680" y="163" text-anchor="middle" font-family="'SF Mono',monospace" font-size="7.5" fill="#5a8a6a">save</text>
+
+  <rect x="700" y="65" width="140" height="200" rx="16" fill="url(#phoneTop)" stroke="#c4b0e0" stroke-width="1.5" filter="url(#phoneShadow)"/>
+  <polygon points="700,81 690,88 690,272 700,265" fill="url(#phoneLeft)" stroke="#b8a0e0" stroke-width="1" opacity="0.8"/>
+  <rect x="708" y="78" width="124" height="180" rx="10" fill="url(#pg1)"/>
+  <rect x="708" y="78" width="124" height="18" rx="10" fill="#e8d5f5"/>
+  <text x="770" y="91" text-anchor="middle" font-family="'SF Mono',monospace" font-size="7.5" fill="#7c5cbf">FIDmem</text>
+  <circle cx="770" cy="272" r="8" fill="#e8d5f5" stroke="#c4b0e0" stroke-width="1"/>
+
+  <!-- Success content -->
+  <text x="770" y="140" text-anchor="middle" font-family="sans-serif" font-size="28" fill="#b8d9a8">✓</text>
+  <text x="770" y="170" text-anchor="middle" font-family="'SF Pro Text',sans-serif" font-size="10" font-weight="700" fill="#7c5cbf">Done!</text>
+  <text x="770" y="186" text-anchor="middle" font-family="'SF Pro Text',sans-serif" font-size="8" fill="#9b7cc8">Agent 42 now has</text>
+  <text x="770" y="198" text-anchor="middle" font-family="'SF Pro Text',sans-serif" font-size="8" fill="#9b7cc8">read access</text>
+
+  <rect x="716" y="210" width="108" height="16" rx="6" fill="#c4b0e0"/>
+  <text x="770" y="221" text-anchor="middle" font-family="'SF Pro Text',sans-serif" font-size="8" font-weight="600" fill="#fff">Back to Dashboard</text>
+
+  <text x="770" y="290" text-anchor="middle" font-family="'SF Pro Text',sans-serif" font-size="9" font-weight="600" fill="#7c5cbf">Success</text>
+</svg>

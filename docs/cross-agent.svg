@@ -1,0 +1,211 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 380" width="860" height="380">
+  <defs>
+    <linearGradient id="bg3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#faf8ff"/>
+      <stop offset="100%" style="stop-color:#f4f8ff"/>
+    </linearGradient>
+    <!-- Alice cube -->
+    <linearGradient id="aTop" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#fde8d0"/>
+      <stop offset="100%" style="stop-color:#f8d0b0"/>
+    </linearGradient>
+    <linearGradient id="aLeft" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#f0c090"/>
+      <stop offset="100%" style="stop-color:#e8b070"/>
+    </linearGradient>
+    <linearGradient id="aRight" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#f8d0b0"/>
+      <stop offset="100%" style="stop-color:#f0c090"/>
+    </linearGradient>
+    <!-- FIDmem cube -->
+    <linearGradient id="fTop" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#e8d5f5"/>
+      <stop offset="100%" style="stop-color:#d4c0f0"/>
+    </linearGradient>
+    <linearGradient id="fLeft" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#c8b4e8"/>
+      <stop offset="100%" style="stop-color:#b8a0e0"/>
+    </linearGradient>
+    <linearGradient id="fRight" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#d8c8f0"/>
+      <stop offset="100%" style="stop-color:#c8b4e8"/>
+    </linearGradient>
+    <!-- Bob cube -->
+    <linearGradient id="bTop" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#d4e8ff"/>
+      <stop offset="100%" style="stop-color:#b8d4f8"/>
+    </linearGradient>
+    <linearGradient id="bLeft" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#a8c8f0"/>
+      <stop offset="100%" style="stop-color:#90b8e8"/>
+    </linearGradient>
+    <linearGradient id="bRight" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#b8d8f8"/>
+      <stop offset="100%" style="stop-color:#a0c8f0"/>
+    </linearGradient>
+    <!-- User cube -->
+    <linearGradient id="uTop" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffeef5"/>
+      <stop offset="100%" style="stop-color:#f5d4e8"/>
+    </linearGradient>
+    <linearGradient id="uLeft" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#e8b8d4"/>
+      <stop offset="100%" style="stop-color:#d8a0c0"/>
+    </linearGradient>
+    <linearGradient id="uRight" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#f5d4e8"/>
+      <stop offset="100%" style="stop-color:#e8b8d4"/>
+    </linearGradient>
+    <!-- Memory stack gradient -->
+    <linearGradient id="memRow1" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#f5eeff"/>
+      <stop offset="100%" style="stop-color:#e8d5f5"/>
+    </linearGradient>
+    <linearGradient id="memRow2" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#eef5ff"/>
+      <stop offset="100%" style="stop-color:#d4e8ff"/>
+    </linearGradient>
+    <linearGradient id="memRow3" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#eef5ee"/>
+      <stop offset="100%" style="stop-color:#d4eac8"/>
+    </linearGradient>
+    <filter id="glow2">
+      <feDropShadow dx="0" dy="5" stdDeviation="7" flood-color="#c4b0e0" flood-opacity="0.25"/>
+    </filter>
+    <marker id="wa1" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L7,3 z" fill="#f5c8a0"/>
+    </marker>
+    <marker id="wa2" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L7,3 z" fill="#9bbfe8"/>
+    </marker>
+    <marker id="wa3" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L7,3 z" fill="#e8b8d4"/>
+    </marker>
+  </defs>
+
+  <rect width="860" height="380" fill="url(#bg3)" rx="16"/>
+  <text x="430" y="32" text-anchor="middle" font-family="'SF Pro Display',sans-serif" font-size="15" font-weight="700" fill="#5a4a7a">Cross-Agent Memory Sharing</text>
+  <text x="430" y="50" text-anchor="middle" font-family="'SF Pro Text',sans-serif" font-size="10" fill="#9b8ab8">The core value of FIDmem: one user, multiple agents, shared context</text>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- Agent Alice (left) -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- 3D cube -->
+  <polygon points="120,90 170,115 120,140 70,115" fill="url(#aTop)" stroke="#f5c8a0" stroke-width="1.2" filter="url(#glow2)"/>
+  <polygon points="70,115 120,140 120,210 70,185" fill="url(#aLeft)" stroke="#e8b070" stroke-width="1.2"/>
+  <polygon points="120,140 170,115 170,185 120,210" fill="url(#aRight)" stroke="#f8d0b0" stroke-width="1.2"/>
+  <text x="120" y="112" text-anchor="middle" font-family="'SF Mono',monospace" font-size="10" font-weight="700" fill="#a06030">Alice</text>
+  <text x="120" y="168" text-anchor="middle" font-family="'SF Mono',monospace" font-size="8.5" fill="#c08050">Trading</text>
+  <text x="120" y="180" text-anchor="middle" font-family="'SF Mono',monospace" font-size="8.5" fill="#c08050">Agent</text>
+  <!-- coin on left face -->
+  <ellipse cx="88" cy="155" rx="12" ry="5" fill="#f5c8a0" stroke="#e8b070" stroke-width="0.8"/>
+  <ellipse cx="88" cy="162" rx="12" ry="5" fill="#fde8d0" stroke="#f5c8a0" stroke-width="0.8"/>
+  <text x="88" y="165" text-anchor="middle" font-family="'SF Mono',monospace" font-size="7" fill="#a06030">$</text>
+
+  <!-- Alice writes label -->
+  <text x="120" y="228" text-anchor="middle" font-family="'SF Pro Text',sans-serif" font-size="9" fill="#a06030">writes 4 memories</text>
+  <text x="120" y="240" text-anchor="middle" font-family="'SF Mono',monospace" font-size="8" fill="#c08050">POST /memory/fid</text>
+  <text x="120" y="252" text-anchor="middle" font-family="'SF Mono',monospace" font-size="8" fill="#c08050">x402 $0.002 each</text>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- FIDmem (center) — large 3D cube -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <polygon points="430,60 510,100 430,140 350,100" fill="url(#fTop)" stroke="#c4b0e0" stroke-width="1.5" filter="url(#glow2)"/>
+  <polygon points="350,100 430,140 430,240 350,200" fill="url(#fLeft)" stroke="#b8a0e0" stroke-width="1.5"/>
+  <polygon points="430,140 510,100 510,200 430,240" fill="url(#fRight)" stroke="#d8c8f0" stroke-width="1.5"/>
+
+  <!-- FIDmem label on top -->
+  <text x="430" y="97" text-anchor="middle" font-family="'SF Mono',monospace" font-size="13" font-weight="700" fill="#7c5cbf">FIDmem</text>
+
+  <!-- Memory rows on left face (3D stacked) -->
+  <!-- Row 1 -->
+  <rect x="358" y="148" width="62" height="13" rx="3" fill="url(#memRow1)" stroke="#c4b0e0" stroke-width="0.8"/>
+  <text x="389" y="158" text-anchor="middle" font-family="'SF Mono',monospace" font-size="7" fill="#7c5cbf">risk: medium</text>
+  <!-- Row 2 -->
+  <rect x="358" y="164" width="62" height="13" rx="3" fill="url(#memRow2)" stroke="#9bbfe8" stroke-width="0.8"/>
+  <text x="389" y="174" text-anchor="middle" font-family="'SF Mono',monospace" font-size="7" fill="#3a6a9a">chains: Base</text>
+  <!-- Row 3 -->
+  <rect x="358" y="180" width="62" height="13" rx="3" fill="url(#memRow3)" stroke="#b8d9a8" stroke-width="0.8"/>
+  <text x="389" y="190" text-anchor="middle" font-family="'SF Mono',monospace" font-size="7" fill="#3a6a4a">tokens: ETH</text>
+  <!-- Row 4 -->
+  <rect x="358" y="196" width="62" height="13" rx="3" fill="url(#memRow1)" stroke="#c4b0e0" stroke-width="0.8"/>
+  <text x="389" y="206" text-anchor="middle" font-family="'SF Mono',monospace" font-size="7" fill="#7c5cbf">max: $500</text>
+
+  <!-- Memory rows on right face -->
+  <rect x="438" y="148" width="62" height="13" rx="3" fill="url(#memRow1)" stroke="#c4b0e0" stroke-width="0.8"/>
+  <text x="469" y="158" text-anchor="middle" font-family="'SF Mono',monospace" font-size="7" fill="#7c5cbf">owner: fid</text>
+  <rect x="438" y="164" width="62" height="13" rx="3" fill="url(#memRow2)" stroke="#9bbfe8" stroke-width="0.8"/>
+  <text x="469" y="174" text-anchor="middle" font-family="'SF Mono',monospace" font-size="7" fill="#3a6a9a">agent: 1</text>
+  <rect x="438" y="180" width="62" height="13" rx="3" fill="url(#memRow3)" stroke="#b8d9a8" stroke-width="0.8"/>
+  <text x="469" y="190" text-anchor="middle" font-family="'SF Mono',monospace" font-size="7" fill="#3a6a4a">type: pref</text>
+  <rect x="438" y="196" width="62" height="13" rx="3" fill="url(#memRow1)" stroke="#c4b0e0" stroke-width="0.8"/>
+  <text x="469" y="206" text-anchor="middle" font-family="'SF Mono',monospace" font-size="7" fill="#7c5cbf">verified</text>
+
+  <!-- FIDmem bottom label -->
+  <text x="430" y="258" text-anchor="middle" font-family="'SF Pro Text',sans-serif" font-size="9" fill="#7c5cbf">Turso DB + ERC-8004 auth</text>
+  <text x="430" y="270" text-anchor="middle" font-family="'SF Mono',monospace" font-size="8" fill="#9b7cc8">keyed by FID</text>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- Agent Bob (right) -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <polygon points="740,90 790,115 740,140 690,115" fill="url(#bTop)" stroke="#9bbfe8" stroke-width="1.2" filter="url(#glow2)"/>
+  <polygon points="690,115 740,140 740,210 690,185" fill="url(#bLeft)" stroke="#90b8e8" stroke-width="1.2"/>
+  <polygon points="740,140 790,115 790,185 740,210" fill="url(#bRight)" stroke="#b8d8f8" stroke-width="1.2"/>
+  <text x="740" y="112" text-anchor="middle" font-family="'SF Mono',monospace" font-size="10" font-weight="700" fill="#3a6a9a">Bob</text>
+  <text x="740" y="168" text-anchor="middle" font-family="'SF Mono',monospace" font-size="8.5" fill="#5a8ab8">News</text>
+  <text x="740" y="180" text-anchor="middle" font-family="'SF Mono',monospace" font-size="8.5" fill="#5a8ab8">Agent</text>
+  <!-- signal bars on right face -->
+  <rect x="750" y="175" width="6" height="8" rx="1" fill="#9bbfe8" opacity="0.9"/>
+  <rect x="759" y="170" width="6" height="13" rx="1" fill="#9bbfe8" opacity="0.7"/>
+  <rect x="768" y="164" width="6" height="19" rx="1" fill="#9bbfe8" opacity="0.5"/>
+
+  <!-- Bob reads label -->
+  <text x="740" y="228" text-anchor="middle" font-family="'SF Pro Text',sans-serif" font-size="9" fill="#3a6a9a">reads shared memory</text>
+  <text x="740" y="240" text-anchor="middle" font-family="'SF Mono',monospace" font-size="8" fill="#5a8ab8">GET /memory/fid</text>
+  <text x="740" y="252" text-anchor="middle" font-family="'SF Mono',monospace" font-size="8" fill="#5a8ab8">x402 $0.001</text>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- User (bottom center) -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <polygon points="430,290 470,308 430,326 390,308" fill="url(#uTop)" stroke="#e8b8d4" stroke-width="1.2"/>
+  <polygon points="390,308 430,326 430,356 390,338" fill="url(#uLeft)" stroke="#d8a0c0" stroke-width="1.2"/>
+  <polygon points="430,326 470,308 470,338 430,356" fill="url(#uRight)" stroke="#f5d4e8" stroke-width="1.2"/>
+  <text x="430" y="320" text-anchor="middle" font-family="'SF Mono',monospace" font-size="9" font-weight="700" fill="#a05080">User</text>
+  <text x="430" y="345" text-anchor="middle" font-family="'SF Mono',monospace" font-size="7.5" fill="#c080a0">FID owner</text>
+  <text x="430" y="370" text-anchor="middle" font-family="'SF Pro Text',sans-serif" font-size="8.5" fill="#a05080">controls access via Snap</text>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- ARROWS -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+
+  <!-- Alice to FIDmem -->
+  <path d="M 173,150 C 240,150 290,140 348,130" stroke="#f5c8a0" stroke-width="2" fill="none" marker-end="url(#wa1)"/>
+  <rect x="220" y="130" width="80" height="28" rx="6" fill="#fff8f0" stroke="#f5c8a0" stroke-width="1"/>
+  <text x="260" y="143" text-anchor="middle" font-family="'SF Mono',monospace" font-size="8" fill="#a06030">POST /memory</text>
+  <text x="260" y="154" text-anchor="middle" font-family="'SF Mono',monospace" font-size="7.5" fill="#c08050">writes context</text>
+
+  <!-- FIDmem to Bob -->
+  <path d="M 512,130 C 560,130 610,140 688,150" stroke="#9bbfe8" stroke-width="2" fill="none" marker-end="url(#wa2)"/>
+  <rect x="540" y="118" width="80" height="28" rx="6" fill="#f0f8ff" stroke="#9bbfe8" stroke-width="1"/>
+  <text x="580" y="131" text-anchor="middle" font-family="'SF Mono',monospace" font-size="8" fill="#3a6a9a">GET /memory</text>
+  <text x="580" y="142" text-anchor="middle" font-family="'SF Mono',monospace" font-size="7.5" fill="#5a8ab8">reads context</text>
+
+  <!-- User to FIDmem (up) -->
+  <path d="M 430,288 L 430,243" stroke="#e8b8d4" stroke-width="1.5" fill="none" stroke-dasharray="5,3" marker-end="url(#wa3)"/>
+  <rect x="390" y="262" width="80" height="14" rx="5" fill="#fff8fc" stroke="#e8b8d4" stroke-width="1"/>
+  <text x="430" y="272" text-anchor="middle" font-family="'SF Mono',monospace" font-size="7.5" fill="#a05080">Snap control</text>
+
+  <!-- Bob response bubble -->
+  <rect x="620" y="218" width="220" height="50" rx="10" fill="#eef5ff" stroke="#9bbfe8" stroke-width="1.2"/>
+  <polygon points="680,218 700,218 690,208" fill="#eef5ff" stroke="#9bbfe8" stroke-width="1"/>
+  <text x="730" y="238" text-anchor="middle" font-family="'SF Pro Text',sans-serif" font-size="9" font-weight="600" fill="#3a6a9a">Bob responds:</text>
+  <text x="730" y="252" text-anchor="middle" font-family="'SF Pro Text',sans-serif" font-size="8.5" fill="#5a8ab8">"Top medium-risk opps</text>
+  <text x="730" y="263" text-anchor="middle" font-family="'SF Pro Text',sans-serif" font-size="8.5" fill="#5a8ab8">on Base for ETH holders"</text>
+
+  <!-- Alice note bubble -->
+  <rect x="20" y="218" width="190" height="50" rx="10" fill="#fff8f0" stroke="#f5c8a0" stroke-width="1.2"/>
+  <polygon points="100,218 120,218 110,208" fill="#fff8f0" stroke="#f5c8a0" stroke-width="1"/>
+  <text x="115" y="238" text-anchor="middle" font-family="'SF Pro Text',sans-serif" font-size="9" font-weight="600" fill="#a06030">Alice stores:</text>
+  <text x="115" y="252" text-anchor="middle" font-family="'SF Mono',monospace" font-size="8" fill="#c08050">risk=medium, chains=Base</text>
+  <text x="115" y="263" text-anchor="middle" font-family="'SF Mono',monospace" font-size="8" fill="#c08050">tokens=ETH, max=$500</text>
+</svg>

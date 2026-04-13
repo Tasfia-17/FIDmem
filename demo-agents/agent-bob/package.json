@@ -1,0 +1,16 @@
+{
+  "name": "agent-bob",
+  "private": true,
+  "scripts": {
+    "start": "tsx src/index.ts"
+  },
+  "dependencies": {
+    "@x402/fetch": "latest",
+    "@x402/core": "latest",
+    "@x402/evm": "latest"
+  },
+  "devDependencies": {
+    "tsx": "latest",
+    "@types/node": "latest"
+  }
+}

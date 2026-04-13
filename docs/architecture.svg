@@ -1,0 +1,230 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 520" width="900" height="520">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#faf8ff"/>
+      <stop offset="100%" style="stop-color:#f0f4ff"/>
+    </linearGradient>
+
+    <!-- Box gradients -->
+    <linearGradient id="snapGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#f5eeff"/>
+      <stop offset="100%" style="stop-color:#e8d5f5"/>
+    </linearGradient>
+    <linearGradient id="apiGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#eef5ff"/>
+      <stop offset="100%" style="stop-color:#d4e8ff"/>
+    </linearGradient>
+    <linearGradient id="dbGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#eef5ee"/>
+      <stop offset="100%" style="stop-color:#d4eac8"/>
+    </linearGradient>
+    <linearGradient id="agentGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#fff5ee"/>
+      <stop offset="100%" style="stop-color:#fde8d0"/>
+    </linearGradient>
+    <linearGradient id="fcGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffeef5"/>
+      <stop offset="100%" style="stop-color:#f5d4e8"/>
+    </linearGradient>
+
+    <!-- 3D shadow effect -->
+    <filter id="boxShadow">
+      <feDropShadow dx="3" dy="5" stdDeviation="5" flood-color="#c4b0e0" flood-opacity="0.25"/>
+    </filter>
+    <filter id="lightShadow">
+      <feDropShadow dx="2" dy="3" stdDeviation="3" flood-color="#b0c8e0" flood-opacity="0.2"/>
+    </filter>
+
+    <marker id="arrowPurple" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#c4b0e0"/>
+    </marker>
+    <marker id="arrowBlue" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#9bbfe8"/>
+    </marker>
+    <marker id="arrowGreen" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#b8d9a8"/>
+    </marker>
+    <marker id="arrowOrange" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#f5c8a0"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="900" height="520" fill="url(#bg)" rx="16"/>
+
+  <!-- Title -->
+  <text x="450" y="38" text-anchor="middle" font-family="'SF Pro Display', 'Segoe UI', sans-serif" font-size="18" font-weight="700" fill="#5a4a7a">FIDmem Architecture</text>
+  <text x="450" y="56" text-anchor="middle" font-family="'SF Pro Text', 'Segoe UI', sans-serif" font-size="11" fill="#9b8ab8">Cross-Agent Memory API for Farcaster</text>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- ROW 1: Farcaster Feed + Agents -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+
+  <!-- Farcaster Feed box -->
+  <rect x="30" y="75" width="200" height="90" rx="12" fill="url(#fcGrad)" stroke="#e8b8d4" stroke-width="1.5" filter="url(#lightShadow)"/>
+  <!-- 3D top edge -->
+  <rect x="30" y="75" width="200" height="8" rx="12" fill="#f5d4e8" opacity="0.8"/>
+  <text x="130" y="100" text-anchor="middle" font-family="'SF Pro Text', sans-serif" font-size="12" font-weight="700" fill="#a05080">Farcaster Feed</text>
+  <rect x="50" y="110" width="160" height="18" rx="6" fill="#ffeef5" stroke="#e8b8d4" stroke-width="1"/>
+  <text x="130" y="123" text-anchor="middle" font-family="'SF Mono', monospace" font-size="9" fill="#a05080">Snap embed in cast</text>
+  <text x="130" y="155" text-anchor="middle" font-family="'SF Pro Text', sans-serif" font-size="9" fill="#c080a0">JFS auth (verified FID)</text>
+
+  <!-- Agent Alice box -->
+  <rect x="280" y="75" width="160" height="90" rx="12" fill="url(#agentGrad)" stroke="#f5c8a0" stroke-width="1.5" filter="url(#lightShadow)"/>
+  <rect x="280" y="75" width="160" height="8" rx="12" fill="#fde8d0" opacity="0.8"/>
+  <text x="360" y="100" text-anchor="middle" font-family="'SF Pro Text', sans-serif" font-size="12" font-weight="700" fill="#a06030">Agent Alice</text>
+  <text x="360" y="118" text-anchor="middle" font-family="'SF Mono', monospace" font-size="9" fill="#c08050">Trading Agent</text>
+  <rect x="295" y="126" width="130" height="16" rx="5" fill="#fff5ee" stroke="#f5c8a0" stroke-width="1"/>
+  <text x="360" y="138" text-anchor="middle" font-family="'SF Mono', monospace" font-size="8.5" fill="#a06030">POST /memory/:fid</text>
+  <text x="360" y="155" text-anchor="middle" font-family="'SF Pro Text', sans-serif" font-size="8.5" fill="#c08050">writes preferences</text>
+
+  <!-- Agent Bob box -->
+  <rect x="490" y="75" width="160" height="90" rx="12" fill="url(#agentGrad)" stroke="#f5c8a0" stroke-width="1.5" filter="url(#lightShadow)"/>
+  <rect x="490" y="75" width="160" height="8" rx="12" fill="#fde8d0" opacity="0.8"/>
+  <text x="570" y="100" text-anchor="middle" font-family="'SF Pro Text', sans-serif" font-size="12" font-weight="700" fill="#a06030">Agent Bob</text>
+  <text x="570" y="118" text-anchor="middle" font-family="'SF Mono', monospace" font-size="9" fill="#c08050">News Agent</text>
+  <rect x="505" y="126" width="130" height="16" rx="5" fill="#fff5ee" stroke="#f5c8a0" stroke-width="1"/>
+  <text x="570" y="138" text-anchor="middle" font-family="'SF Mono', monospace" font-size="8.5" fill="#a06030">GET /memory/:fid</text>
+  <text x="570" y="155" text-anchor="middle" font-family="'SF Pro Text', sans-serif" font-size="8.5" fill="#c08050">reads shared context</text>
+
+  <!-- x402 badge on agents -->
+  <rect x="295" y="148" width="55" height="14" rx="4" fill="#fde8d0" stroke="#f5c8a0" stroke-width="1"/>
+  <text x="322" y="158" text-anchor="middle" font-family="'SF Mono', monospace" font-size="7.5" fill="#a06030">x402 $0.002</text>
+  <rect x="505" y="148" width="55" height="14" rx="4" fill="#fde8d0" stroke="#f5c8a0" stroke-width="1"/>
+  <text x="532" y="158" text-anchor="middle" font-family="'SF Mono', monospace" font-size="7.5" fill="#a06030">x402 $0.001</text>
+
+  <!-- ERC-8004 box -->
+  <rect x="700" y="75" width="170" height="90" rx="12" fill="url(#snapGrad)" stroke="#c4b0e0" stroke-width="1.5" filter="url(#lightShadow)"/>
+  <rect x="700" y="75" width="170" height="8" rx="12" fill="#e8d5f5" opacity="0.8"/>
+  <text x="785" y="100" text-anchor="middle" font-family="'SF Pro Text', sans-serif" font-size="12" font-weight="700" fill="#7c5cbf">ERC-8004</text>
+  <text x="785" y="116" text-anchor="middle" font-family="'SF Mono', monospace" font-size="9" fill="#9b7cc8">Identity Registry</text>
+  <text x="785" y="132" text-anchor="middle" font-family="'SF Mono', monospace" font-size="8" fill="#b09ad8">Base Mainnet</text>
+  <rect x="715" y="138" width="140" height="14" rx="4" fill="#f5eeff" stroke="#c4b0e0" stroke-width="1"/>
+  <text x="785" y="149" text-anchor="middle" font-family="'SF Mono', monospace" font-size="8" fill="#7c5cbf">0x8004A169...9432</text>
+  <text x="785" y="162" text-anchor="middle" font-family="'SF Pro Text', sans-serif" font-size="8.5" fill="#9b7cc8">verifies agent identity</text>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- ROW 2: Snap Server -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+
+  <!-- Snap Server box -->
+  <rect x="30" y="215" width="200" height="100" rx="12" fill="url(#snapGrad)" stroke="#c4b0e0" stroke-width="1.5" filter="url(#boxShadow)"/>
+  <rect x="30" y="215" width="200" height="10" rx="12" fill="#e8d5f5" opacity="0.9"/>
+  <text x="130" y="242" text-anchor="middle" font-family="'SF Pro Text', sans-serif" font-size="12" font-weight="700" fill="#7c5cbf">Snap Server</text>
+  <text x="130" y="258" text-anchor="middle" font-family="'SF Mono', monospace" font-size="9" fill="#9b7cc8">Hono + @farcaster/snap-hono</text>
+  <line x1="50" y1="265" x2="210" y2="265" stroke="#c4b0e0" stroke-width="0.8" opacity="0.5"/>
+  <text x="130" y="278" text-anchor="middle" font-family="'SF Mono', monospace" font-size="8.5" fill="#7c5cbf">Dashboard page</text>
+  <text x="130" y="291" text-anchor="middle" font-family="'SF Mono', monospace" font-size="8.5" fill="#7c5cbf">Add memory page</text>
+  <text x="130" y="304" text-anchor="middle" font-family="'SF Mono', monospace" font-size="8.5" fill="#7c5cbf">Grant access page</text>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- ROW 2: FIDmem API (center, large) -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+
+  <!-- API box -->
+  <rect x="280" y="205" width="390" height="130" rx="14" fill="url(#apiGrad)" stroke="#9bbfe8" stroke-width="2" filter="url(#boxShadow)"/>
+  <rect x="280" y="205" width="390" height="12" rx="14" fill="#d4e8ff" opacity="0.9"/>
+  <text x="475" y="234" text-anchor="middle" font-family="'SF Pro Text', sans-serif" font-size="13" font-weight="700" fill="#3a6a9a">FIDmem API</text>
+  <text x="475" y="250" text-anchor="middle" font-family="'SF Mono', monospace" font-size="9" fill="#5a8ab8">Hono on Cloudflare Workers</text>
+  <line x1="300" y1="258" x2="650" y2="258" stroke="#9bbfe8" stroke-width="0.8" opacity="0.5"/>
+
+  <!-- Route pills -->
+  <rect x="295" y="265" width="165" height="18" rx="6" fill="#eef5ff" stroke="#9bbfe8" stroke-width="1"/>
+  <text x="377" y="277" text-anchor="middle" font-family="'SF Mono', monospace" font-size="8.5" fill="#3a6a9a">GET /memory/:fid</text>
+
+  <rect x="470" y="265" width="165" height="18" rx="6" fill="#eef5ff" stroke="#9bbfe8" stroke-width="1"/>
+  <text x="552" y="277" text-anchor="middle" font-family="'SF Mono', monospace" font-size="8.5" fill="#3a6a9a">POST /memory/:fid</text>
+
+  <rect x="295" y="290" width="165" height="18" rx="6" fill="#eef5ff" stroke="#9bbfe8" stroke-width="1"/>
+  <text x="377" y="302" text-anchor="middle" font-family="'SF Mono', monospace" font-size="8.5" fill="#3a6a9a">DELETE /memory/:fid/:id</text>
+
+  <rect x="470" y="290" width="165" height="18" rx="6" fill="#eef5ff" stroke="#9bbfe8" stroke-width="1"/>
+  <text x="552" y="302" text-anchor="middle" font-family="'SF Mono', monospace" font-size="8.5" fill="#3a6a9a">POST /memory/:fid/access</text>
+
+  <!-- Middleware labels -->
+  <text x="475" y="322" text-anchor="middle" font-family="'SF Pro Text', sans-serif" font-size="9" fill="#5a8ab8">Middleware: x402 payment verification + ERC-8004 identity check + access control</text>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- ROW 2: Neynar box -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+
+  <rect x="700" y="215" width="170" height="100" rx="12" fill="url(#fcGrad)" stroke="#e8b8d4" stroke-width="1.5" filter="url(#lightShadow)"/>
+  <rect x="700" y="215" width="170" height="10" rx="12" fill="#f5d4e8" opacity="0.9"/>
+  <text x="785" y="242" text-anchor="middle" font-family="'SF Pro Text', sans-serif" font-size="12" font-weight="700" fill="#a05080">Neynar API</text>
+  <text x="785" y="258" text-anchor="middle" font-family="'SF Mono', monospace" font-size="9" fill="#c080a0">FID verification</text>
+  <line x1="715" y1="265" x2="855" y2="265" stroke="#e8b8d4" stroke-width="0.8" opacity="0.5"/>
+  <text x="785" y="278" text-anchor="middle" font-family="'SF Mono', monospace" font-size="8.5" fill="#a05080">GET /user/bulk</text>
+  <text x="785" y="292" text-anchor="middle" font-family="'SF Mono', monospace" font-size="8.5" fill="#a05080">custody_address</text>
+  <text x="785" y="306" text-anchor="middle" font-family="'SF Pro Text', sans-serif" font-size="8.5" fill="#c080a0">agent score lookup</text>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- ROW 3: Turso DB -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+
+  <!-- Turso box -->
+  <rect x="280" y="385" width="390" height="110" rx="14" fill="url(#dbGrad)" stroke="#b8d9a8" stroke-width="2" filter="url(#boxShadow)"/>
+  <rect x="280" y="385" width="390" height="12" rx="14" fill="#d4eac8" opacity="0.9"/>
+  <text x="475" y="413" text-anchor="middle" font-family="'SF Pro Text', sans-serif" font-size="13" font-weight="700" fill="#3a6a4a">Turso (libSQL)</text>
+  <line x1="300" y1="422" x2="650" y2="422" stroke="#b8d9a8" stroke-width="0.8" opacity="0.5"/>
+
+  <!-- Table: memories -->
+  <rect x="295" y="428" width="175" height="55" rx="8" fill="#eef5ee" stroke="#b8d9a8" stroke-width="1"/>
+  <text x="382" y="443" text-anchor="middle" font-family="'SF Pro Text', sans-serif" font-size="9" font-weight="700" fill="#3a6a4a">memories table</text>
+  <text x="382" y="456" text-anchor="middle" font-family="'SF Mono', monospace" font-size="8" fill="#5a8a6a">owner_fid, agent_id, key</text>
+  <text x="382" y="468" text-anchor="middle" font-family="'SF Mono', monospace" font-size="8" fill="#5a8a6a">value, type, metadata</text>
+  <text x="382" y="480" text-anchor="middle" font-family="'SF Mono', monospace" font-size="8" fill="#5a8a6a">created_at, updated_at</text>
+
+  <!-- Table: agent_access -->
+  <rect x="480" y="428" width="175" height="55" rx="8" fill="#eef5ee" stroke="#b8d9a8" stroke-width="1"/>
+  <text x="567" y="443" text-anchor="middle" font-family="'SF Pro Text', sans-serif" font-size="9" font-weight="700" fill="#3a6a4a">agent_access table</text>
+  <text x="567" y="456" text-anchor="middle" font-family="'SF Mono', monospace" font-size="8" fill="#5a8a6a">owner_fid, agent_id</text>
+  <text x="567" y="468" text-anchor="middle" font-family="'SF Mono', monospace" font-size="8" fill="#5a8a6a">can_read, can_write</text>
+  <text x="567" y="480" text-anchor="middle" font-family="'SF Mono', monospace" font-size="8" fill="#5a8a6a">granted_at</text>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- ARROWS -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+
+  <!-- Farcaster Feed to Snap Server (down) -->
+  <line x1="130" y1="165" x2="130" y2="213" stroke="#c4b0e0" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arrowPurple)"/>
+  <rect x="90" y="183" width="80" height="14" rx="4" fill="#faf8ff"/>
+  <text x="130" y="193" text-anchor="middle" font-family="'SF Mono', monospace" font-size="7.5" fill="#9b7cc8">JFS auth</text>
+
+  <!-- Snap Server to API (right) -->
+  <line x1="230" y1="265" x2="278" y2="265" stroke="#9bbfe8" stroke-width="1.5" marker-end="url(#arrowBlue)"/>
+  <rect x="232" y="255" width="44" height="14" rx="4" fill="#faf8ff"/>
+  <text x="254" y="265" text-anchor="middle" font-family="'SF Mono', monospace" font-size="7" fill="#5a8ab8">fetch</text>
+
+  <!-- Agent Alice to API (down) -->
+  <line x1="360" y1="165" x2="390" y2="203" stroke="#f5c8a0" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arrowOrange)"/>
+
+  <!-- Agent Bob to API (down) -->
+  <line x1="570" y1="165" x2="540" y2="203" stroke="#f5c8a0" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arrowOrange)"/>
+
+  <!-- API to ERC-8004 (right) -->
+  <line x1="670" y1="240" x2="698" y2="240" stroke="#c4b0e0" stroke-width="1.5" marker-end="url(#arrowPurple)"/>
+  <rect x="672" y="228" width="24" height="14" rx="4" fill="#faf8ff"/>
+  <text x="684" y="238" text-anchor="middle" font-family="'SF Mono', monospace" font-size="7" fill="#9b7cc8">verify</text>
+
+  <!-- API to Neynar (right, lower) -->
+  <line x1="670" y1="290" x2="698" y2="290" stroke="#e8b8d4" stroke-width="1.5" marker-end="url(#arrowOrange)"/>
+  <rect x="672" y="278" width="24" height="14" rx="4" fill="#faf8ff"/>
+  <text x="684" y="288" text-anchor="middle" font-family="'SF Mono', monospace" font-size="7" fill="#a05080">FID</text>
+
+  <!-- API to Turso (down) -->
+  <line x1="475" y1="335" x2="475" y2="383" stroke="#b8d9a8" stroke-width="2" marker-end="url(#arrowGreen)"/>
+  <rect x="435" y="352" width="80" height="14" rx="4" fill="#faf8ff"/>
+  <text x="475" y="362" text-anchor="middle" font-family="'SF Mono', monospace" font-size="7.5" fill="#5a8a6a">read / write</text>
+
+  <!-- Legend -->
+  <rect x="30" y="400" width="220" height="90" rx="10" fill="#faf8ff" stroke="#e0d8f0" stroke-width="1"/>
+  <text x="140" y="418" text-anchor="middle" font-family="'SF Pro Text', sans-serif" font-size="10" font-weight="700" fill="#5a4a7a">Legend</text>
+  <line x1="50" y1="432" x2="80" y2="432" stroke="#f5c8a0" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <text x="140" y="436" text-anchor="middle" font-family="'SF Pro Text', sans-serif" font-size="9" fill="#a06030">Agent request (x402 paid)</text>
+  <line x1="50" y1="450" x2="80" y2="450" stroke="#c4b0e0" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <text x="140" y="454" text-anchor="middle" font-family="'SF Pro Text', sans-serif" font-size="9" fill="#7c5cbf">User action (JFS signed)</text>
+  <line x1="50" y1="468" x2="80" y2="468" stroke="#9bbfe8" stroke-width="1.5"/>
+  <text x="140" y="472" text-anchor="middle" font-family="'SF Pro Text', sans-serif" font-size="9" fill="#3a6a9a">Internal fetch</text>
+  <line x1="50" y1="486" x2="80" y2="486" stroke="#b8d9a8" stroke-width="2"/>
+  <text x="140" y="490" text-anchor="middle" font-family="'SF Pro Text', sans-serif" font-size="9" fill="#3a6a4a">DB read / write</text>
+</svg>

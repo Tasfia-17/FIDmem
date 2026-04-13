@@ -118,52 +118,68 @@ The combination of public social graph, linked wallets, and agent identity in on
 
 You need Node.js 22 or later, pnpm, a Turso account, a Neynar API key, and a Cloudflare account. All free tiers work fine.
 
-**Install dependencies**
+**Option A — automated setup (recommended)**
+
+```bash
+git clone https://github.com/Tasfia-17/FIDmem
+cd FIDmem
+NEYNAR_API_KEY=your_key bash setup.sh
+```
+
+This installs dependencies, creates the Turso database, applies the schema, and writes both `api/.env` and `snap/.env` for you.
+
+**Option B — manual setup**
 
 ```bash
 git clone https://github.com/Tasfia-17/FIDmem
 cd FIDmem
 pnpm install
+
+# Create and seed the database
+turso db create fidmem
+turso db shell fidmem < schema.sql
+
+# Configure environment
+cp api/.env.example api/.env      # fill in TURSO_DATABASE_URL, TURSO_AUTH_TOKEN, NEYNAR_API_KEY, BASE_RPC_URL, PAYMENT_WALLET
+cp snap/.env.example snap/.env    # defaults work for local dev
 ```
-
-**Set up the database**
-
-```bash
-npx turso db create fidmem
-npx turso db shell fidmem < schema.sql
-npx turso db show fidmem
-npx turso db tokens create fidmem
-```
-
-**Configure environment**
-
-```bash
-cp api/.env.example api/.env
-```
-
-Fill in TURSO_DATABASE_URL, TURSO_AUTH_TOKEN, NEYNAR_API_KEY, BASE_RPC_URL, and PAYMENT_WALLET.
 
 **Run locally**
 
 ```bash
-# Terminal 1
-pnpm dev:api    # API on http://localhost:8787
+pnpm dev        # runs API (port 8787) and Snap (port 3003) in parallel
+```
 
-# Terminal 2
-pnpm dev:snap   # Snap on http://localhost:3003
+**Deploy to production**
+
+```bash
+# Set secrets first
+cd api
+wrangler secret put TURSO_DATABASE_URL --env production
+wrangler secret put TURSO_AUTH_TOKEN --env production
+wrangler secret put NEYNAR_API_KEY --env production
+wrangler secret put BASE_RPC_URL --env production
+wrangler secret put PAYMENT_WALLET --env production
+
+# Deploy (ENVIRONMENT=production is set automatically)
+wrangler deploy --env production
 ```
 
 **Run the demo**
 
-First grant access for the demo agents:
+First grant access for the demo agents (the `/access` endpoint requires `x-agent-id: self` — only the account owner can manage grants):
 
 ```bash
 curl -X POST http://localhost:8787/memory/12345/access \
   -H "Content-Type: application/json" \
+  -H "x-agent-id: self" \
+  -H "x-agent-fid: 12345" \
   -d '{"agent_id":"1","can_read":true,"can_write":true}'
 
 curl -X POST http://localhost:8787/memory/12345/access \
   -H "Content-Type: application/json" \
+  -H "x-agent-id: self" \
+  -H "x-agent-fid: 12345" \
   -d '{"agent_id":"2","can_read":true,"can_write":true}'
 ```
 
@@ -201,7 +217,9 @@ The value "self" is reserved for users accessing their own memories through the 
 
 Read memories for a FID. Requires x402 payment of $0.001 USDC on Base.
 
-Query params: `key=<string>` for exact key lookup.
+Query params:
+- `key=<string>` — exact key lookup scoped to the calling agent
+- `key=<string>&any=1` — cross-agent lookup: returns the most recently written value for that key across all agents (used for cross-agent memory sharing)
 
 ```json
 { "memory": { "id": "...", "key": "risk_tolerance", "value": "medium", "agent_id": "1" } }
@@ -225,7 +243,7 @@ List all agents with access to this FID's memories. Free.
 
 **POST /memory/:fid/access**
 
-Grant or revoke agent access. Free. Called by the user through the Snap.
+Grant or revoke agent access. Free. Only callable with `X-Agent-Id: self` (the account owner via Snap). Agents cannot grant themselves access.
 
 ```json
 { "agent_id": "42", "can_read": true, "can_write": false }
@@ -235,12 +253,18 @@ Grant or revoke agent access. Free. Called by the user through the Snap.
 
 ## How x402 Works
 
-Agents use the x402 fetch wrapper to handle payments automatically:
+Agents use the `@x402/fetch` wrapper to handle payments automatically:
 
 ```typescript
-import { wrapFetchWithPayment } from "@x402/fetch";
+import { wrapFetchWithPaymentFromConfig } from "@x402/fetch";
+import { ExactEvmScheme } from "@x402/evm";
+import { privateKeyToAccount } from "viem/accounts";
 
-const fetchWithPayment = wrapFetchWithPayment(fetch, client);
+const account = privateKeyToAccount(process.env.WALLET_PRIVATE_KEY as `0x${string}`);
+
+const fetch402 = wrapFetchWithPaymentFromConfig(fetch, {
+  schemes: [{ network: "eip155:8453", client: new ExactEvmScheme(account) }],
+});
 
 // The wrapper handles everything:
 // 1. Makes the request
@@ -248,12 +272,14 @@ const fetchWithPayment = wrapFetchWithPayment(fetch, client);
 // 3. Signs USDC payment on Base
 // 4. Retries with payment header
 // 5. Returns the response
-const res = await fetchWithPayment(
+const res = await fetch402(
   `https://api.fidmem.xyz/memory/${fid}?key=risk_tolerance`
 );
 ```
 
 No API keys. No billing accounts. No manual payment flows. The agent pays autonomously.
+
+The wallet must hold USDC on Base mainnet. Set `WALLET_PRIVATE_KEY=0x...` in the agent's environment. In development mode (`ENVIRONMENT != production`), the API skips payment enforcement so agents work without a funded wallet.
 
 ---
 
@@ -291,7 +317,7 @@ FID verification uses the Neynar bulk user endpoint to get the custody address f
 
 **Privy**
 
-Demo agents use Privy agentic wallets to sign x402 payments. The wallet holds USDC on Base and pays autonomously per API call within policy-defined limits.
+Demo agents use a funded EVM wallet (via `WALLET_PRIVATE_KEY`) to sign x402 payments. The wallet holds USDC on Base and pays autonomously per API call. In production, Privy agentic wallets can be used as the signing key.
 
 **Farcaster**
 

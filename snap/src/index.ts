@@ -10,7 +10,6 @@ import {
   fetchMemories,
 } from "./pages/home";
 
-// Minimal local types to avoid zod v3/v4 peer dep mismatch
 interface GetAction { type: "get" }
 interface PostAction {
   type: "post";
@@ -42,20 +41,21 @@ registerSnapHandler(app, async (rawCtx: any): Promise<SnapHandlerResult> => {
   const b = base(ctx.request);
   const path = url.pathname;
 
-  // GET: render pages
+  // GET: render pages — fid always comes from ?fid= query param
   if (ctx.action.type === "get") {
-    if (path === "/add") return addPage(b);
-    if (path === "/grant") return grantPage(b);
-
     const fid = parseInt(url.searchParams.get("fid") ?? "0", 10);
+
+    if (path === "/add") return addPage(b, fid);
+    if (path === "/grant") return grantPage(b, fid);
+
     if (!fid) {
-      return messagePage("FIDmem", "Open this snap from a Farcaster cast to load your memories.", b);
+      return messagePage("FIDmem", "Open this snap from a Farcaster cast to load your memories.", b, 0);
     }
     const { memories, agents } = await fetchMemories(fid);
-    return homePage(memories, agents, b);
+    return homePage(memories, agents, b, fid);
   }
 
-  // POST: handle actions
+  // POST: fid comes from authenticated user context
   const post = ctx.action as PostAction;
   const fid = post.user.fid;
   const inputs = post.inputs ?? {};
@@ -66,7 +66,7 @@ registerSnapHandler(app, async (rawCtx: any): Promise<SnapHandlerResult> => {
     const value = String(inputs["value"] ?? "").trim();
     const type = String(inputs["type"] ?? "preference");
 
-    if (!key || !value) return messagePage("Error", "Key and value are required.", b);
+    if (!key || !value) return messagePage("Error", "Key and value are required.", b, fid);
 
     const res = await fetch(`${API_BASE}/memory/${fid}`, {
       method: "POST",
@@ -78,9 +78,9 @@ registerSnapHandler(app, async (rawCtx: any): Promise<SnapHandlerResult> => {
       body: JSON.stringify({ key, value, type }),
     });
 
-    if (!res.ok) return messagePage("Error", "Failed to save memory.", b);
+    if (!res.ok) return messagePage("Error", "Failed to save memory.", b, fid);
     const { memories, agents } = await fetchMemories(fid);
-    return homePage(memories, agents, b);
+    return homePage(memories, agents, b, fid);
   }
 
   if (actionParam === "delete") {
@@ -90,31 +90,39 @@ registerSnapHandler(app, async (rawCtx: any): Promise<SnapHandlerResult> => {
       headers: { "x-agent-id": "self", "x-agent-fid": String(fid) },
     });
     const { memories, agents } = await fetchMemories(fid);
-    return homePage(memories, agents, b);
+    return homePage(memories, agents, b, fid);
   }
 
   if (actionParam === "grant") {
     const agent_id = String(inputs["agent_id"] ?? "").trim();
-    const can_read = inputs["can_read"] !== "false";
-    const can_write = inputs["can_write"] === "true";
+    // Switch inputs are booleans, not strings
+    const can_read = inputs["can_read"] !== false;
+    const can_write = inputs["can_write"] === true;
 
-    if (!agent_id) return messagePage("Error", "Agent ID is required.", b);
+    if (!agent_id) return messagePage("Error", "Agent ID is required.", b, fid);
 
-    await fetch(`${API_BASE}/memory/${fid}/access`, {
+    const res = await fetch(`${API_BASE}/memory/${fid}/access`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        "x-agent-id": "self",
+        "x-agent-fid": String(fid),
+      },
       body: JSON.stringify({ agent_id, can_read, can_write }),
     });
+
+    if (!res.ok) return messagePage("Error", "Failed to grant access.", b, fid);
 
     return messagePage(
       "Done!",
       `Agent ${agent_id} now has ${can_read ? "read" : ""}${can_write ? " + write" : ""} access.`,
-      b
+      b,
+      fid
     );
   }
 
   const { memories, agents } = await fetchMemories(fid);
-  return homePage(memories, agents, b);
+  return homePage(memories, agents, b, fid);
 });
 
 const port = parseInt(process.env.PORT ?? "3003", 10);

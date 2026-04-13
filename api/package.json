@@ -8,9 +8,9 @@
   "dependencies": {
     "@hono/zod-validator": "^0.7.6",
     "@libsql/client": "^0.14.0",
-    "@x402/core": "latest",
-    "@x402/evm": "latest",
-    "@x402/hono": "latest",
+    "@x402/core": "^2.10.0",
+    "@x402/evm": "^2.10.0",
+    "@x402/hono": "^2.10.0",
     "hono": "^4.7.0",
     "viem": "^2.21.0",
     "zod": "^4.3.6"

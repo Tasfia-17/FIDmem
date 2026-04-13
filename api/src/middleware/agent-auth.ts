@@ -4,13 +4,6 @@ import { getDb, getAgentAccess } from "../lib/db";
 import { getUserByFid } from "../lib/neynar";
 import { isRegisteredAgent } from "../lib/erc8004";
 
-/**
- * Verifies the requesting agent has ERC-8004 identity and access to the FID's memories.
- *
- * Required headers:
- *   X-Agent-Id:  ERC-8004 agentId (uint256 as string), or "self" for user via Snap
- *   X-Agent-Fid: Farcaster FID of the agent
- */
 export async function agentAuthMiddleware(
   c: Context<{ Bindings: Env; Variables: Variables }>,
   next: Next
@@ -30,24 +23,34 @@ export async function agentAuthMiddleware(
     return c.json({ error: "Invalid FID" }, 400);
   }
 
-  // "self" = user accessing their own memories via Snap — skip ERC-8004 check
+  // "self" = user via Snap — skip all agent checks
   if (agentId !== "self") {
-    const agentUser = await getUserByFid(agentFid, c.env);
-    if (!agentUser) {
-      return c.json({ error: "Agent FID not found on Farcaster" }, 403);
+    const isProd = c.env.ENVIRONMENT === "production";
+
+    if (isProd) {
+      // Validate agentId is a valid integer before BigInt conversion
+      if (!/^\d+$/.test(agentId)) {
+        return c.json({ error: "Agent ID must be a numeric ERC-8004 token ID" }, 400);
+      }
+
+      const agentUser = await getUserByFid(agentFid, c.env);
+      if (!agentUser) {
+        return c.json({ error: "Agent FID not found on Farcaster" }, 403);
+      }
+
+      const verified = await isRegisteredAgent(BigInt(agentId), agentUser.custody_address, c.env);
+      if (!verified) {
+        return c.json({ error: "Agent not registered on ERC-8004 Identity Registry" }, 403);
+      }
     }
 
-    const verified = await isRegisteredAgent(BigInt(agentId), agentUser.custody_address, c.env);
-    if (!verified) {
-      return c.json({ error: "Agent not registered on ERC-8004 Identity Registry" }, 403);
-    }
-
+    // Access control always enforced (dev + prod)
     const db = getDb(c.env);
     const access = await getAgentAccess(db, ownerFid, agentId);
     const isWrite = c.req.method === "POST" || c.req.method === "DELETE";
 
     if (!access) {
-      return c.json({ error: "Agent has no access. User must grant access via FIDmem Snap." }, 403);
+      return c.json({ error: "Agent has no access. Grant access via FIDmem Snap." }, 403);
     }
     if (isWrite && !access.can_write) {
       return c.json({ error: "Agent does not have write access" }, 403);

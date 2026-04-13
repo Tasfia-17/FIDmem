@@ -3,12 +3,20 @@ import { cors } from "hono/cors";
 import { logger } from "hono/logger";
 import { requestId } from "hono/request-id";
 import { HTTPException } from "hono/http-exception";
-import { paymentMiddleware } from "@x402/hono";
+import { paymentMiddleware, x402ResourceServer } from "@x402/hono";
 import { HTTPFacilitatorClient } from "@x402/core/server";
 import { ExactEvmScheme } from "@x402/evm/exact/server";
-import type { RoutesConfig } from "@x402/core/server";
 import type { Env, Variables } from "./types";
 import memoryRoutes from "./routes/memory";
+
+// Module-level x402 setup — static imports, initialized once per isolate
+const facilitator = new HTTPFacilitatorClient({
+  url: "https://facilitator.x402.org",
+});
+const resourceServer = new x402ResourceServer(facilitator).register(
+  "eip155:8453",
+  new ExactEvmScheme()
+);
 
 const app = new Hono<{ Bindings: Env; Variables: Variables }>();
 
@@ -27,41 +35,31 @@ app.get("/", (c) =>
 );
 
 // ── x402 payment middleware ───────────────────────────────────────────────────
-// Agents auto-pay $0.001 USDC (read) or $0.002 USDC (write) on Base
-// Skips payment for /access endpoints and "self" (user via Snap)
+// Agents auto-pay $0.001 USDC (read) or $0.002 USDC (write) on Base mainnet.
+// Skipped for /access endpoints, "self" (user via Snap), and non-production.
 app.use("/memory/:fid", async (c, next) => {
   const path = c.req.path;
   const agentId = c.req.header("x-agent-id");
 
-  if (path.endsWith("/access") || agentId === "self") {
+  if (path.endsWith("/access") || agentId === "self" || c.env.ENVIRONMENT !== "production") {
     return next();
   }
 
   const payTo = c.env.PAYMENT_WALLET as `0x${string}`;
-  const facilitatorUrl =
-    c.env.ENVIRONMENT === "production"
-      ? "https://api.cdp.coinbase.com/platform/v2/x402"
-      : "https://x402.org/facilitator";
 
-  const facilitator = new HTTPFacilitatorClient({ url: facilitatorUrl });
-  const { x402ResourceServer } = await import("@x402/core/server");
-  const server = new x402ResourceServer(facilitator).register(
-    "eip155:*",
-    new ExactEvmScheme()
-  );
-
-  const routes: RoutesConfig = {
-    "GET /memory/:fid": {
-      accepts: { scheme: "exact", payTo, price: "$0.001", network: "eip155:8453" },
-      description: "Read agent memories for FID",
+  return paymentMiddleware(
+    {
+      "GET /memory/:fid": {
+        accepts: { scheme: "exact", payTo, price: "$0.001", network: "eip155:8453" },
+        description: "Read agent memories for FID",
+      },
+      "POST /memory/:fid": {
+        accepts: { scheme: "exact", payTo, price: "$0.002", network: "eip155:8453" },
+        description: "Write agent memory for FID",
+      },
     },
-    "POST /memory/:fid": {
-      accepts: { scheme: "exact", payTo, price: "$0.002", network: "eip155:8453" },
-      description: "Write agent memory for FID",
-    },
-  };
-
-  return paymentMiddleware(routes, server)(c, next);
+    resourceServer
+  )(c, next);
 });
 
 // ── Routes ────────────────────────────────────────────────────────────────────

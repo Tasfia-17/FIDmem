@@ -11,7 +11,13 @@
     "TURSO_AUTH_TOKEN",
     "NEYNAR_API_KEY",
     "BASE_RPC_URL",
-    "PAYMENT_WALLET",
-    "OPENAI_API_KEY"
-  ]
+    "PAYMENT_WALLET"
+  ],
+  "env": {
+    "production": {
+      "vars": {
+        "ENVIRONMENT": "production"
+      }
+    }
+  }
 }

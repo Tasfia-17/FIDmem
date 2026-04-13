@@ -1,7 +1,6 @@
 import { createClient, type Client } from "@libsql/client/web";
 import type { Env, Memory } from "../types";
 
-// Module-level singleton — persists across warm requests in the same Worker isolate
 let _db: Client | null = null;
 
 export function getDb(env: Env): Client {
@@ -69,6 +68,20 @@ export async function getMemoryByKey(
   const result = await db.execute({
     sql: `SELECT * FROM memories WHERE owner_fid = ? AND agent_id = ? AND key = ?`,
     args: [owner_fid, agent_id, key],
+  });
+  return result.rows[0] ? rowToMemory(result.rows[0]) : null;
+}
+
+// Cross-agent read: returns the most recently updated memory for a key,
+// regardless of which agent wrote it. Used for cross-agent memory sharing.
+export async function getMemoryByKeyAnyAgent(
+  db: Client,
+  owner_fid: number,
+  key: string
+): Promise<Memory | null> {
+  const result = await db.execute({
+    sql: `SELECT * FROM memories WHERE owner_fid = ? AND key = ? ORDER BY updated_at DESC LIMIT 1`,
+    args: [owner_fid, key],
   });
   return result.rows[0] ? rowToMemory(result.rows[0]) : null;
 }

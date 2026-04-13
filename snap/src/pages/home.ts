@@ -9,7 +9,8 @@ type AgentAccess = { agent_id: string; can_read: boolean; can_write: boolean };
 export function homePage(
   memories: MemoryItem[],
   agents: AgentAccess[],
-  base: string
+  base: string,
+  fid: number
 ): SnapHandlerResult {
   const visible = memories.slice(0, 5);
   const memElements: Record<string, object> = {};
@@ -23,8 +24,7 @@ export function homePage(
       type: "item",
       props: {
         title: m.key,
-        subtitle: m.value.slice(0, 80),
-        label: m.agent_id === "self" ? "you" : `agent:${m.agent_id.slice(0, 6)}`,
+        description: `${m.value.slice(0, 80)} · ${m.agent_id === "self" ? "you" : `agent:${m.agent_id.slice(0, 6)}`}`,
       },
       children: [delId],
     };
@@ -34,7 +34,7 @@ export function homePage(
       on: {
         press: {
           action: "submit",
-          params: { target: `${base}/?action=delete&id=${m.id}` },
+          params: { target: `${base}/?fid=${fid}&action=delete&id=${m.id}` },
         },
       },
     };
@@ -49,7 +49,7 @@ export function homePage(
       type: "item",
       props: {
         title: `Agent ${a.agent_id.slice(0, 8)}`,
-        subtitle: `read:${a.can_read ? "yes" : "no"}  write:${a.can_write ? "yes" : "no"}`,
+        description: `read:${a.can_read ? "yes" : "no"}  write:${a.can_write ? "yes" : "no"}`,
       },
     };
   });
@@ -63,13 +63,13 @@ export function homePage(
         page: {
           type: "stack",
           props: {},
-          children: ["header", "mem-section", "sep", "agent-section", "add-btn"],
+          children: ["header", "mem-section", "sep", "agent-section", "add-btn", "grant-btn"],
         },
         header: {
           type: "item",
           props: {
             title: "FIDmem",
-            subtitle: `${memories.length} memories · ${agents.length} agents`,
+            description: `${memories.length} memories · ${agents.length} agents`,
           },
         },
         "mem-section": memIds.length > 0
@@ -82,7 +82,12 @@ export function homePage(
         "add-btn": {
           type: "button",
           props: { label: "Add Memory", variant: "primary", icon: "plus" },
-          on: { press: { action: "submit", params: { target: `${base}/add` } } },
+          on: { press: { action: "submit", params: { target: `${base}/add?fid=${fid}` } } },
+        },
+        "grant-btn": {
+          type: "button",
+          props: { label: "Grant Agent Access", icon: "user-plus" },
+          on: { press: { action: "submit", params: { target: `${base}/grant?fid=${fid}` } } },
         },
         ...memElements,
         ...agentElements,
@@ -92,7 +97,7 @@ export function homePage(
 }
 
 // ── Add memory page ───────────────────────────────────────────────────────────
-export function addPage(base: string): SnapHandlerResult {
+export function addPage(base: string, fid: number): SnapHandlerResult {
   return {
     version: "2.0",
     theme: { accent: "purple" },
@@ -118,23 +123,20 @@ export function addPage(base: string): SnapHandlerResult {
           props: {
             name: "type",
             label: "Type",
-            options: [
-              { label: "Preference", value: "preference" },
-              { label: "Fact", value: "fact" },
-              { label: "Skill", value: "skill" },
-            ],
+            // options must be string[] per Farcaster Snap spec v2.0
+            options: ["preference", "fact", "skill"],
             defaultValue: "preference",
           },
         },
         "save-btn": {
           type: "button",
           props: { label: "Save", variant: "primary" },
-          on: { press: { action: "submit", params: { target: `${base}/?action=add` } } },
+          on: { press: { action: "submit", params: { target: `${base}/?fid=${fid}&action=add` } } },
         },
         "back-btn": {
           type: "button",
           props: { label: "Back" },
-          on: { press: { action: "submit", params: { target: `${base}/` } } },
+          on: { press: { action: "submit", params: { target: `${base}/?fid=${fid}` } } },
         },
       },
     },
@@ -142,7 +144,7 @@ export function addPage(base: string): SnapHandlerResult {
 }
 
 // ── Grant access page ─────────────────────────────────────────────────────────
-export function grantPage(base: string): SnapHandlerResult {
+export function grantPage(base: string, fid: number): SnapHandlerResult {
   return {
     version: "2.0",
     theme: { accent: "purple" },
@@ -170,12 +172,12 @@ export function grantPage(base: string): SnapHandlerResult {
         "grant-btn": {
           type: "button",
           props: { label: "Grant Access", variant: "primary" },
-          on: { press: { action: "submit", params: { target: `${base}/?action=grant` } } },
+          on: { press: { action: "submit", params: { target: `${base}/?fid=${fid}&action=grant` } } },
         },
         "back-btn": {
           type: "button",
           props: { label: "Back" },
-          on: { press: { action: "submit", params: { target: `${base}/` } } },
+          on: { press: { action: "submit", params: { target: `${base}/?fid=${fid}` } } },
         },
       },
     },
@@ -183,11 +185,11 @@ export function grantPage(base: string): SnapHandlerResult {
 }
 
 // ── Success / error page ──────────────────────────────────────────────────────
-export function messagePage(title: string, message: string, base: string): SnapHandlerResult {
+export function messagePage(title: string, message: string, base: string, fid: number): SnapHandlerResult {
   return {
     version: "2.0",
     theme: { accent: "purple" },
-    effects: title === "Done!" ? ["confetti"] : undefined,
+    ...(title === "Done!" ? { effects: ["confetti"] } : {}),
     ui: {
       root: "page",
       elements: {
@@ -197,7 +199,7 @@ export function messagePage(title: string, message: string, base: string): SnapH
         "back-btn": {
           type: "button",
           props: { label: "Back to Dashboard", variant: "primary" },
-          on: { press: { action: "submit", params: { target: `${base}/` } } },
+          on: { press: { action: "submit", params: { target: `${base}/?fid=${fid}` } } },
         },
       },
     },
